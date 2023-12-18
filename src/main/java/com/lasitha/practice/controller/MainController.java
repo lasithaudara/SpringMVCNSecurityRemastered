@@ -11,4 +11,19 @@ public class MainController {
         return "index";
     }
 
+    @GetMapping("/home")
+    public String getHome(){
+        return "home";
+    }
+
+    @GetMapping("/pageone")
+    public String getPageOne(){
+        return "pageone";
+    }
+
+    @GetMapping("/pagetwo")
+    public String getPageTwo(){
+        return "pagetwo";
+    }
+
 }
