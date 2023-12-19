@@ -37,6 +37,8 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
                     .loginProcessingUrl("/loginProcess")
                     .defaultSuccessUrl("/home")
                 .and()
-                .httpBasic();
+                .httpBasic()
+                .and()
+                .logout();
     }
 }

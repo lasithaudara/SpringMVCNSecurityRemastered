@@ -1,4 +1,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: lasit
@@ -20,7 +21,8 @@
 <div class="container">
   <form:form class="form-signin" method="post" action="loginProcess">
     <h2 class="form-signin-heading">Please sign in</h2>
-    <p>
+    <c:if test="${param.error != null}"><div class="alert alert-danger" role="alert">Bad credentials</div></c:if>
+    <c:if test="${param.logout != null}"><div class="alert alert-success" role="alert">You have been signed out</div></c:if><p>
     <label for="username" class="sr-only">Username</label>
     <input type="text" id="username" name="username" class="form-control" placeholder="Username" required="" autofocus="">
   </p>

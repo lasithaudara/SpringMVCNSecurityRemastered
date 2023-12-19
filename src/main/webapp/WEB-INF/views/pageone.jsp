@@ -7,6 +7,6 @@
 <body>
 <h1><%= "Page One!" %></h1>
 <br/>
-<a href="">Page One</a>
+<a href="${pageContext.request.contextPath}/home">goto Home</a>
 </body>
 </html>
