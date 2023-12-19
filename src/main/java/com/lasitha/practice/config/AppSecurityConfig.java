@@ -1,8 +1,6 @@
 package com.lasitha.practice.config;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -20,7 +18,11 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
        auth.inMemoryAuthentication()
                .withUser("lakee")
                .password(passwordEncoder.encode("lakee"))
-               .roles("ADMIN");
+               .roles("ADMIN")
+               .and()
+               .withUser("lasitha")
+               .password(passwordEncoder.encode("lasitha"))
+               .roles("USER");
     }
 
     @Override
@@ -31,7 +33,9 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/home").authenticated()
                 .antMatchers("/").permitAll()
                 .and()
-                .formLogin()
+                .formLogin().loginPage("/appLoginPage")
+                    .loginProcessingUrl("/loginProcess")
+                    .defaultSuccessUrl("/home")
                 .and()
                 .httpBasic();
     }
