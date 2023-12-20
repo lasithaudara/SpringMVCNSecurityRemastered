@@ -32,7 +32,6 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordEncoder(passwordEncoder)
                 .dataSource(dataSource);
 
-
     }
 
     @Override

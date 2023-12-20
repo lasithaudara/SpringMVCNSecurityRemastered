@@ -11,7 +11,6 @@ public class MainController {
         return "index";
     }
 
-
     @GetMapping("/home")
     public String getHome(){
         return "home";
