@@ -11,10 +11,6 @@ public class MainController {
         return "index";
     }
 
-    @GetMapping("/appLoginPage")
-    public String getLoginPage(){
-        return "login";
-    }
 
     @GetMapping("/home")
     public String getHome(){
