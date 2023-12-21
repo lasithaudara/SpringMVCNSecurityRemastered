@@ -16,14 +16,14 @@ public class MainController {
         return "home";
     }
 
-    @GetMapping("/pageone")
+    @GetMapping("/admin-dashboard")
     public String getPageOne(){
-        return "pageone";
+        return "adminDashboard";
     }
 
-    @GetMapping("/pagetwo")
+    @GetMapping("/user-dashboard")
     public String getPageTwo(){
-        return "pagetwo";
+        return "userDashboard";
     }
 
 }
