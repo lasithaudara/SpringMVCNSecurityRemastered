@@ -1,24 +1,22 @@
 package com.lasitha.practice.service;
 
+import com.lasitha.practice.controller.signup.ChangePwDTO;
 import com.lasitha.practice.controller.signup.UserDTO;
-import com.lasitha.practice.repository.UserRegisterRepository;
+import com.lasitha.practice.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.JdbcUserDetailsManager;
-import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
 
 import java.util.function.BiFunction;
-import java.util.function.Function;
 
 @Service
 @AllArgsConstructor
-public class IUserRegisterService implements UserRegisterService {
+public class IUserService implements UserService {
 
     private final PasswordEncoder passwordEncoder;
-    private final UserRegisterRepository repository;
+    private final UserRepository repository;
 
     @Override
     public void saveUser(UserDTO userDTO) {
@@ -31,10 +29,30 @@ public class IUserRegisterService implements UserRegisterService {
         repository.saveUser(mapToUD.apply(userDTO, passwordEncoder));
     }
 
+    @Override
+    public String changePassword(String username, ChangePwDTO changePwDTO) {
+        String newPassword = changePwDTO.getNewPassword();
+        if(!changePwDTO.getConfirmPassword().equals(newPassword))
+            return "redirect:/change-password-page?notMatch";
+
+        String inputCurrentPassword = changePwDTO.getOldPassword();
+        if (confirmPassword(username, inputCurrentPassword)) {
+            repository.changePassword(inputCurrentPassword, passwordEncoder.encode(newPassword));
+            return "redirect:/login-page"; }
+
+        return "redirect:/change-password-page?invalid";
+    }
+
     private static final BiFunction<UserDTO, PasswordEncoder, UserDetails> mapToUD =
             (userDTO, encoder) -> User.withUsername(userDTO.getUsername())
                     .password(userDTO.getPassword())
                     .passwordEncoder(encoder::encode)
                     .authorities("USER", "ADMIN")
                     .build();
+
+    private boolean confirmPassword(String username, String inputCurrentPassword){
+        UserDetails userByUserName = repository.getUserByUserName(username);
+        String currentEncodedPassword = userByUserName.getPassword();
+        return passwordEncoder.matches(inputCurrentPassword, currentEncodedPassword);
+    }
 }

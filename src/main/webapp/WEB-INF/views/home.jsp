@@ -12,11 +12,13 @@
 <body>
 
 <div class="container">
-    <h1 class="form-signin-heading"><%= "Welcome Home!" %></h1>
+    <h1 class="form-signin-heading"><%= "Welcome "%>${username}</h1>
     <br/>
     <sec:authorize access="hasAuthority('ADMIN')"><a class="form-signin-heading" href="${pageContext.request.contextPath}/admin-dashboard">goto AdminDashboard</a></sec:authorize>
     <br/>
     <sec:authorize access="hasAuthority('USER')"><a class="form-signin-heading" href="${pageContext.request.contextPath}/user-dashboard">goto UserDashboard</a></sec:authorize>
+    <br/>
+    <a class="form-signin-heading" href="${pageContext.request.contextPath}/change-password-page">Change Password</a>
     <br/>
     <form:form class="form-signin" method="post" action="logout">
         <button class="btn btn-lg btn-primary btn-block" type="submit">logout</button>

@@ -19,7 +19,7 @@
 </head>
 <body>
 <div class="container">
-  <form:form class="form-signin" method="post" action="loginProcess">
+  <form:form class="form-signin" method="post" action="login">
     <h2 class="form-signin-heading">Please sign in</h2>
     <c:if test="${param.error != null}"><div class="alert alert-danger" role="alert">Bad credentials</div></c:if>
     <c:if test="${param.logout != null}"><div class="alert alert-success" role="alert">You have been signed out</div></c:if><p>

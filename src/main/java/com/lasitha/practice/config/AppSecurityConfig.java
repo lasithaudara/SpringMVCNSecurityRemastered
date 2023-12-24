@@ -37,17 +37,18 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/pageone").authenticated()
-                .antMatchers("/pagetwo").authenticated()
+                .antMatchers("/admin-dashboard").authenticated()
+                .antMatchers("/user-dashboard").authenticated()
+                .antMatchers("/change-password-page").authenticated()
                 .antMatchers("/home").authenticated()
                 .antMatchers("/").permitAll()
                 .and()
-                .formLogin().loginPage("/appLoginPage")
-                    .loginProcessingUrl("/loginProcess")
+                .formLogin().loginPage("/login-page")
+                    .loginProcessingUrl("/login")
                     .defaultSuccessUrl("/home")
                 .and()
                 .httpBasic()
                 .and()
-                .logout();
+                .logout().logoutUrl("/logout");
     }
 }

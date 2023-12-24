@@ -9,10 +9,11 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @AllArgsConstructor
-public class IUserRegisterRepository implements UserRegisterRepository {
+public class IUserRepository implements UserRepository {
 
     private final JdbcTemplate jdbcTemplate;
     private final UserDetailsManager userDetailsManager;
+
     @Override
     public void saveUser(UserDTO userDTO) {
         String queryInsertUser = "INSERT INTO users values (?,?,?)";
@@ -27,4 +28,15 @@ public class IUserRegisterRepository implements UserRegisterRepository {
     public void saveUser(UserDetails userDetails) {
         userDetailsManager.createUser(userDetails);
     }
+
+    @Override
+    public void changePassword(String oldPassword, String newPassword) {
+        userDetailsManager.changePassword(oldPassword, newPassword);
+    }
+
+    @Override
+    public UserDetails getUserByUserName(String userName) {
+        return userDetailsManager.loadUserByUsername(userName);
+    }
+
 }
